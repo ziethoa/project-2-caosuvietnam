@@ -509,7 +509,7 @@ button{
     z-index: -9;
     top: 0;
     left: 0;
-    transition: opacity 0.5s ease-in-out;
+    transition: opacity 0.3s ease-in-out;
 }
 
 .field-bg::after {
@@ -549,6 +549,11 @@ button{
 
 .field-content h3 {
     font-weight: 700;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.field-content p {
+    transition: opacity 0.3s ease-in-out;
 }
 
 .field-content a {
@@ -600,6 +605,12 @@ button{
     flex-direction: column;
     row-gap: 20px;
     flex-shrink: 0;
+    opacity: 1;
+}
+
+.field-slider .slide-item.hidden {
+    opacity: 0;
+    pointer-events: none;
 }
 
 .field-slider .slide-item img {
@@ -608,6 +619,23 @@ button{
     object-fit: cover;
     border-top-left-radius: 35%;
     border-bottom-right-radius: 35%;
+    transform: scale(0.95);
+    transition: transform 0.5s ease-in-out;
+}
+
+.field-slider .slide-item:not(.hidden) img {
+    transform: scale(1);
+}
+
+.field-slider .slide-item h6 {
+    transform: translateY(10px);
+    opacity: 0;
+    transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+}
+
+.field-slider .slide-item:not(.hidden) h6 {
+    transform: translateY(0);
+    opacity: 1;
 }
 
 .field h3,
@@ -681,19 +709,12 @@ button{
 
 .field .progress-fill {
     position: absolute;
+    width: 0%;
     top: 0;
     left: 0;
     height: 100%;
     background-color: var(--green-8);
     transition: width 0.5s ease-in-out;
-}
-
-.slide-item.hidden {
-    display: none;
-}
-
-.slide-item.visible {
-    display: flex;
 }
 /* ------------//-------------- */
 /* introduction */
@@ -1641,6 +1662,18 @@ img[alt="image2"] {
         row-gap: 30px;
         align-items: flex-start;
     }
+
+    .field-slider .slide-item {
+        width: 245px;
+    }
+
+    .field-slider .slide-item img {
+        height: 300px;
+    }
+
+    .field-slider .slide-item h6 {
+        font-size: 16px;
+    }
     /* ----------//------------ */
     /* introduction */
     .introduction {
@@ -1814,6 +1847,11 @@ img[alt="image2"] {
     }
     /* ----------//------------ */
     /* field */
+    .field {
+        row-gap: 20px;
+        padding: 20px;
+    }
+
     .field-content {
         width: 100%;
         height: auto;
@@ -1838,6 +1876,14 @@ img[alt="image2"] {
 
     .field .pagina-num span, .field .pagina-num h2 {
         font-size: 20px;
+    }
+
+    .field-slider .slide-item {
+        width: 170px;
+    }
+
+    .field-slider .slide-item img {
+        height: 220px;
     }
     /* ----------//------------ */
     /* introduction */

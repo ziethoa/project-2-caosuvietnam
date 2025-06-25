@@ -489,7 +489,7 @@
     </script>
     <script>
         // field
-        document.addEventListener('DOMContentLoaded', () => {
+            document.addEventListener('DOMContentLoaded', () => {
                 const fieldElements = document.querySelectorAll('.field-content');
                 const fieldObserver = new IntersectionObserver((entries) => {
                     entries.forEach(entry => {
@@ -534,21 +534,11 @@
                     fieldBgImg.style.opacity = '1';
                     fieldContentH3.style.opacity = '1';
                     fieldContentP.style.opacity = '1';
-                }, 500);
+                }, 300);
             }
 
             function updateSlider() {
-                // Cập nhật trạng thái hiển thị
-                slides.forEach((slide, index) => {
-                    slide.classList.remove('visible', 'hidden');
-                    if (visibleIndices.includes(index)) {
-                        slide.classList.add('visible');
-                    } else {
-                        slide.classList.add('hidden');
-                    }
-                });
-
-                // Sắp xếp lại thứ tự các item trong slider-container
+                // Sắp xếp lại thứ tự các slide trong DOM
                 const sortedSlides = Array.from(slides).sort((a, b) => {
                     const aIndex = parseInt(a.classList[1].split('-')[1]) - 1;
                     const bIndex = parseInt(b.classList[1].split('-')[1]) - 1;
@@ -558,9 +548,24 @@
                     return visibleIndices.includes(aIndex) ? -1 : 1;
                 });
 
-                // Xóa và thêm lại các item
+                // Xóa và thêm lại các slide
                 sliderContainer.innerHTML = '';
                 sortedSlides.forEach(slide => sliderContainer.appendChild(slide));
+
+                // Cập nhật trạng thái hiển thị
+                slides.forEach((slide, index) => {
+                    slide.classList.remove('hidden');
+                    if (!visibleIndices.includes(index)) {
+                        slide.classList.add('hidden');
+                    }
+                });
+
+                // Đặt lại transform để tránh giật
+                sliderContainer.style.transition = 'none';
+                sliderContainer.style.transform = 'translateX(0)';
+                setTimeout(() => {
+                    sliderContainer.style.transition = 'transform 0.5s ease-in-out';
+                }, 50);
 
                 // Cập nhật thanh tiến độ và số trang
                 progressFill.style.width = `${pageCounter * 16.67}%`;
@@ -568,10 +573,10 @@
             }
 
             rightArrow.addEventListener('click', () => {
-                // Cập nhật chỉ số trước
+                // Cập nhật chỉ số
                 currentIndex = (currentIndex + 1) % slides.length;
 
-                // Cập nhật nội dung chính dựa trên item vừa biến mất
+                // Cập nhật nội dung chính
                 updateContent(currentIndex);
 
                 // Cập nhật danh sách hiển thị
@@ -582,21 +587,19 @@
                     (currentIndex + 4) % slides.length
                 ];
 
-                // Tăng số trang, reset khi item-1 biến mất
+                // Tăng số trang
                 pageCounter = currentIndex === 0 ? 1 : pageCounter + 1;
+                if (pageCounter > 6) pageCounter = 1;
 
-                // Trượt slider sang trái
+                // Trượt sang trái
                 sliderContainer.style.transform = `translateX(-320px)`;
                 setTimeout(() => {
-                    sliderContainer.style.transition = 'none';
-                    sliderContainer.style.transform = 'translateX(0)';
                     updateSlider();
-                    sliderContainer.style.transition = 'transform 0.5s ease-in-out';
                 }, 500);
             });
 
             leftArrow.addEventListener('click', () => {
-                // Cập nhật chỉ số và danh sách hiển thị
+                // Cập nhật chỉ số
                 currentIndex = (currentIndex - 1 + slides.length) % slides.length;
 
                 // Cập nhật danh sách hiển thị
@@ -607,21 +610,26 @@
                     (currentIndex + 4) % slides.length
                 ];
 
-                // Giảm số trang, reset khi item-1 biến mất
+                // Giảm số trang
                 pageCounter = currentIndex === 0 ? 1 : pageCounter - 1;
                 if (pageCounter < 1) pageCounter = 6;
 
-                // Trượt slider sang phải
-                sliderContainer.style.transform = `translateX(320px)`;
-                setTimeout(() => {
-                    sliderContainer.style.transition = 'none';
-                    sliderContainer.style.transform = 'translateX(0)';
-                    updateSlider();
-                    sliderContainer.style.transition = 'transform 0.5s ease-in-out';
-                }, 500);
-
                 // Cập nhật nội dung chính
                 updateContent(currentIndex);
+
+                // Thêm slide vào đầu để trượt sang phải
+                const firstVisibleIndex = visibleIndices[0];
+                const prevIndex = (firstVisibleIndex - 1 + slides.length) % slides.length;
+                sliderContainer.insertBefore(slides[prevIndex].cloneNode(true), sliderContainer.firstChild);
+                sliderContainer.style.transform = `translateX(-320px)`;
+                sliderContainer.style.transition = 'none';
+                setTimeout(() => {
+                    sliderContainer.style.transition = 'transform 0.5s ease-in-out';
+                    sliderContainer.style.transform = `translateX(0)`;
+                    setTimeout(() => {
+                        updateSlider();
+                    }, 500);
+                }, 50);
             });
 
             // Khởi tạo slider
