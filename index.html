@@ -24,7 +24,7 @@
         </header>
         <section class="main-content">
             <!-- banner -->
-            <div class="banner">
+            <div class="banner" id="banner">
                 <div class="swiper mySwiper">
                     <div class="swiper-wrapper">
                         <div class="swiper-slide">
@@ -48,7 +48,7 @@
                   </div>
             </div>
             <!-- field -->
-            <div class="field">
+            <div class="field" id="field">
                 <div class="field-bg">
                     <img src="./assets/field-bg.png" alt="field-bg">
                 </div>
@@ -156,7 +156,7 @@
                 </div>
             </div>
             <!-- introduction -->
-            <div class="introduction">
+            <div class="introduction" id="introduction">
                 <div class="introduction-content">
                     <div class="intro-title">
                         <p class="text-1">Vietnam Rubber Group</p>
@@ -208,7 +208,7 @@
                 </div>
             </div>
             <!-- development -->
-            <div class="development">
+            <div class="development" id="development">
                 <div class="development-content">
                     <div class="devel-left">
                         <div class="devel-left-title">
@@ -312,7 +312,7 @@
                 </div>
             </div>
             <!-- shareholder -->
-            <div class="shareholder">
+            <div class="shareholder" id="shareholder">
                 <div class="shareholder-container">
                     <h2>Cổ phiếu Tập đoàn Công nghiệp Cao su Việt Nam</h2>
                     <div class="shareholder-content">
@@ -341,7 +341,7 @@
                 </div>
             </div>
             <!-- news -->
-            <div class="news">
+            <div class="news" id="news">
                 <div class="news-container">
                     <h2>THƯ VIỆN ĐA PHƯƠNG TIỆN</h2>
                     <div class="tab-titles">
@@ -461,7 +461,11 @@
         <footer>
             <div id="footer-id"></div>
         </footer>
+        
     </main>
+    <button id="scrollToTopBtn" class="scroll" title="Lên đầu trang" type="button">
+        <i class="fa-solid fa-arrow-up-from-bracket"></i>
+    </button>
     <script src="script.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script>
@@ -754,6 +758,25 @@
                 }
             });
     </script>
+    <!-- <script>
+        const scrollToTopBtn = document.getElementById('scrollToTopBtn');
+
+            window.addEventListener('scroll', () => {
+                console.log('Scroll Y:', window.scrollY); // Debug
+                if (window.scrollY > 300) {
+                    scrollToTopBtn.classList.add('show');
+                } else {
+                    scrollToTopBtn.classList.remove('show');
+                }
+            });
+
+            scrollToTopBtn.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+    </script> -->
 
 </body>
 </html>

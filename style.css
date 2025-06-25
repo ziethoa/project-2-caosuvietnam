@@ -182,6 +182,7 @@ button{
 .main {
     transform: translateY(100vh);
     transition: transform 1s ease;
+    position: relative;
 }
 
 .main.active {
@@ -1253,6 +1254,43 @@ img[alt="image2"] {
     object-fit: cover;
 }
 /* ------------//-------------- */
+/* scroll up */
+#scrollToTopBtn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #007bff; /* Màu nền nút */
+    color: white; /* Màu biểu tượng */
+    border: none;
+    border-radius: 50%; /* Hình tròn */
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    opacity: 0; /* Ẩn mặc định */
+    visibility: hidden; /* Ẩn khỏi DOM */
+    transition: opacity 0.3s, visibility 0.3s;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Đổ bóng */
+    z-index: 1000;
+}
+
+#scrollToTopBtn.show {
+    opacity: 1; /* Hiện nút */
+    visibility: visible; /* Hiện trong DOM */
+}
+
+#scrollToTopBtn:hover {
+    background-color: #0056b3; /* Màu nền khi hover */
+}
+
+/* Tùy chỉnh kích thước biểu tượng */
+#scrollToTopBtn i {
+    font-size: 24px;
+}
+/* ------------//-------------- */
+
 /* responsive */
 /* ------------//-------------- */
 @media screen and (max-width: 1280px){
