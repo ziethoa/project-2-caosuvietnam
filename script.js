@@ -28,26 +28,28 @@ function setupNavResponsive() {
     const overlay = document.getElementById('overlay');
     const sideNav = document.getElementById('sideNav');
     const menuBtn = document.getElementById('menu-btn-sidenav');
-    const closeBtn = document.getElementById('close-btn-sidenav');
+    // const closeBtn = document.getElementById('close-btn-sidenav');
 
-    if (!menuBtn || !sideNav || !overlay || !closeBtn) {
-        console.error('Không tìm thấy một hoặc nhiều phần tử:', { menuBtn, sideNav, overlay, closeBtn });
+    if (!menuBtn || !sideNav || !overlay ) {
+        console.error('Không tìm thấy một hoặc nhiều phần tử:', { menuBtn, sideNav, overlay});
         return;
     }
 
     menuBtn.addEventListener('click', () => {
         sideNav.classList.add('active');
         overlay.classList.add('active');
+        document.body.classList.add('no-scroll');
     });
 
-    closeBtn.addEventListener('click', () => {
-        sideNav.classList.remove('active');
-        overlay.classList.remove('active');
-    });
+    // closeBtn.addEventListener('click', () => {
+    //     sideNav.classList.remove('active');
+    //     overlay.classList.remove('active');
+    // });
 
     overlay.addEventListener('click', () => {
         sideNav.classList.remove('active');
-        overlay.classList.remove('active');    
+        overlay.classList.remove('active'); 
+        document.body.classList.remove('no-scroll');
     });
 }
 
